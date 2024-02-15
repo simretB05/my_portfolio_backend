@@ -1,5 +1,6 @@
 from flask import Flask, request, make_response, jsonify ,send_file
-import os
+# Import Flask and send_file from Flask library
+import os  # Import the os library for interacting with the operating system
 from reportlab.pdfgen import canvas
 from flask_cors import CORS
 import dbcreds
@@ -24,30 +25,41 @@ def post_new_user_contact():
     else:
       return make_response(jsonify(results), 500)  
     from flask import Flask, send_file
+
+from flask import Flask, send_file
 import os
 
 app = Flask(__name__)
 
-@app.get('/api/download_resume')
+
+# The send_file function is used to send files as responses in a Flask application
+# It is specifically imported from the Flask library for this purpose
+
+# API route to handle downloading the resume PDF
+@app.route('/api/download_resume')
 def download_resume():
-    # Specify the folder and filename
+    # Specify the folder and filename for the resume PDF
     folder_name = 'resume_pdf'
     pdf_filename = 'SimretPaulosResume.pdf'
 
-    # Construct the full path to the PDF file
+    # Construct the full path to the PDF file using the os library
     pdf_path = os.path.join(os.getcwd(), folder_name, pdf_filename)
 
     # Check if the file exists
     if os.path.exists(pdf_path):
-        # Send the file as a response
+        # Print a message indicating the file is being sent
+        print(f"Sending file: {pdf_path}")
+        
+        # Send the resume PDF file as a response with 'as_attachment' set to True
+        # This prompts the browser to download the file instead of displaying it
         return send_file(pdf_path, as_attachment=True)
     else:
+        # Return a message if the resume PDF file is not found
         return "File not found"
 
 if __name__ == '__main__':
+    # Run the Flask app in debug mode
     app.run(debug=True)
-
-
 
 
 if dbcreds.production_mode:
