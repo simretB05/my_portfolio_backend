@@ -12,24 +12,22 @@ CORS(app)
 
 @app.post('/api/user_contact')
 def post_new_user_contact():
-    error=apiHelper.check_endpoint_info(request.form,["user_name","user_email_address","user_message"]) 
+    error=apiHelper.check_endpoint_info(request.form,["user_name","user_email_address","user_phone_number","user_message"]) 
+    print(request.form.get('user_name'))
+    print(request.form.get('user_email_address'))
+    print(request.form.get('user_phone_number'))
+    print(request.form.get('user_message'))
     if (error != None ):
       return make_response(jsonify(error), 400)
     if(request.files):
         filename =apiHelper.save_file(request.files['file'])
     else:
         filename=None
-    results = dbhelper.run_procedure('CAll  my_user_contact_inform(?,?,?)',[request.form.get('user_name'),request.form.get('user_email_address'),request.form.get('user_message')])
+    results = dbhelper.run_procedure('CAll  my_user_contact_inform(?,?,?,?)',[request.form.get('user_name'),request.form.get('user_email_address'),request.form.get('user_phone_number'),request.form.get('user_message')])
     if(type(results)==list):
         return make_response(jsonify(results), 200)
     else:
       return make_response(jsonify(results), 500)  
-    from flask import Flask, send_file
-
-from flask import Flask, send_file
-import os
-
-app = Flask(__name__)
 
 
 # The send_file function is used to send files as responses in a Flask application
