@@ -13,10 +13,6 @@ CORS(app)
 @app.post('/api/user_contact')
 def post_new_user_contact():
     error=apiHelper.check_endpoint_info(request.form,["user_name","user_email_address","user_phone_number","user_message"]) 
-    print(request.form.get('user_name'))
-    print(request.form.get('user_email_address'))
-    print(request.form.get('user_phone_number'))
-    print(request.form.get('user_message'))
     if (error != None ):
       return make_response(jsonify(error), 400)
     if(request.files):
@@ -55,9 +51,7 @@ def download_resume():
         # Return a message if the resume PDF file is not found
         return "File not found"
 
-if __name__ == '__main__':
-    # Run the Flask app in debug mode
-    app.run(debug=True)
+
 
 
 if dbcreds.production_mode:
