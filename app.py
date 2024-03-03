@@ -57,7 +57,7 @@ def download_resume():
 if dbcreds.production_mode:
     print("Running in Production Mode")
     import bjoern
-    bjoern.run(app, '0.0.0.0', 5000)
+    bjoern.run(app, '0.0.0.0', 5007)
 else:
     from flask_cors import CORS 
     CORS(app)
